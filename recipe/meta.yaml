@@ -1,13 +1,13 @@
 {% set name = "qonnx" %}
-{% set version = "0.3.0" %}
+{% set version = "0.4.0" %}
 
 package:
   name: {{ name|lower }}
   version: {{ version }}
 
 source:
-  url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/qonnx-{{ version }}.tar.gz
-  sha256: dcb87eb74bec8a84d98e1746e4896c0184368f7cf377d0f5ee11179958ab84d3
+  url: https://pypi.org/packages/source/{{ name[0] }}/{{ name }}/qonnx-{{ version }}.tar.gz
+  sha256: 96bdbd15f85119aff65e0d6167c29aec6626040f75f177be38531edd1b978e69
 
 build:
   noarch: generic
