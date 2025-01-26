@@ -45,8 +45,7 @@ test:
   imports:
     - qonnx
   commands:
-    # the package has a very tight protobuf pin
-    # but it protobuf is not used.
+    # the package has a very tight protobuf pin but it protobuf is not used.
     # - pip check
     - qonnx-cleanup --help
     - qonnx-exec --help
