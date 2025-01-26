@@ -10,7 +10,7 @@ source:
   sha256: 96bdbd15f85119aff65e0d6167c29aec6626040f75f177be38531edd1b978e69
 
 build:
-  noarch: generic
+  noarch: python
   number: 0
   script: {{ PYTHON }} -m pip install . -vv --no-deps --no-build-isolation
   entry_points:
@@ -24,13 +24,13 @@ build:
 
 requirements:
   host:
-    - python >=3.8
+    - python {{ python_min }}
     - setuptools >=46.1.0
     - setuptools-scm >=5
     - wheel
     - pip
   run:
-    - python >=3.8
+    - python >={{ python_min }}
     - attrs >=22.2.0
     - clize >=5.0.1
     - bitstring >=3.1.7
@@ -54,6 +54,8 @@ test:
     - qonnx-convert --help
     - qonnx-range-analysis --help
     - qonnx-download-model --help
+  requires:
+    - python {{ python_min }}
 
 about:
   home: https://github.com/fastmachinelearning/qonnx
