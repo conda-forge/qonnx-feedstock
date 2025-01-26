@@ -1,16 +1,16 @@
 {% set name = "qonnx" %}
-{% set version = "0.3.0" %}
+{% set version = "0.4.0" %}
 
 package:
   name: {{ name|lower }}
   version: {{ version }}
 
 source:
-  url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/qonnx-{{ version }}.tar.gz
-  sha256: dcb87eb74bec8a84d98e1746e4896c0184368f7cf377d0f5ee11179958ab84d3
+  url: https://pypi.org/packages/source/{{ name[0] }}/{{ name }}/qonnx-{{ version }}.tar.gz
+  sha256: 96bdbd15f85119aff65e0d6167c29aec6626040f75f177be38531edd1b978e69
 
 build:
-  noarch: generic
+  noarch: python
   number: 0
   script: {{ PYTHON }} -m pip install . -vv --no-deps --no-build-isolation
   entry_points:
@@ -24,13 +24,13 @@ build:
 
 requirements:
   host:
-    - python >=3.8
+    - python {{ python_min }}
     - setuptools >=46.1.0
     - setuptools-scm >=5
     - wheel
     - pip
   run:
-    - python >=3.8
+    - python >={{ python_min }}
     - attrs >=22.2.0
     - clize >=5.0.1
     - bitstring >=3.1.7
@@ -45,8 +45,7 @@ test:
   imports:
     - qonnx
   commands:
-    # the package has a very tight protobuf pin
-    # but it protobuf is not used.
+    # the package has a very tight protobuf pin but it protobuf is not used.
     # - pip check
     - qonnx-cleanup --help
     - qonnx-exec --help
@@ -55,6 +54,8 @@ test:
     - qonnx-convert --help
     - qonnx-range-analysis --help
     - qonnx-download-model --help
+  requires:
+    - python {{ python_min }}
 
 about:
   home: https://github.com/fastmachinelearning/qonnx
