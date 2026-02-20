@@ -1,5 +1,5 @@
 {% set name = "qonnx" %}
-{% set version = "0.4.0" %}
+{% set version = "1.0.0" %}
 
 package:
   name: {{ name|lower }}
@@ -7,7 +7,7 @@ package:
 
 source:
   url: https://pypi.org/packages/source/{{ name[0] }}/{{ name }}/qonnx-{{ version }}.tar.gz
-  sha256: 96bdbd15f85119aff65e0d6167c29aec6626040f75f177be38531edd1b978e69
+  sha256: 02f240743999de0fef06bee94c4891240324b8f48453848eb1583395c5963401
 
 build:
   noarch: python
