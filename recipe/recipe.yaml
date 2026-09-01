@@ -1,0 +1,77 @@
+schema_version: 1
+
+context:
+  name: qonnx
+  version: "0.4.0"
+
+package:
+  name: ${{ name|lower }}
+  version: ${{ version }}
+
+source:
+  url: https://pypi.org/packages/source/${{ name[0] }}/${{ name }}/qonnx-${{ version }}.tar.gz
+  sha256: 96bdbd15f85119aff65e0d6167c29aec6626040f75f177be38531edd1b978e69
+
+build:
+  number: 1
+  noarch: python
+  script: ${{ PYTHON }} -m pip install . -vv --no-deps --no-build-isolation
+  python:
+    entry_points:
+      - qonnx-cleanup = qonnx.util.cleanup:main
+      - qonnx-exec = qonnx.util.exec_qonnx:main
+      - qonnx-to-channels-last = qonnx.util.to_channels_last:main
+      - qonnx-inference-cost = qonnx.util.inference_cost:main
+      - qonnx-convert = qonnx.util.convert:main
+      - qonnx-range-analysis = qonnx.util.range_analysis:main
+      - qonnx-download-model = qonnx.util.test:qonnx_download_model
+
+requirements:
+  host:
+    - python ${{ python_min }}.*
+    - setuptools >=46.1.0
+    - setuptools-scm >=5
+    - wheel
+    - pip
+  run:
+    - python >=${{ python_min }}
+    - attrs >=22.2.0
+    - clize >=5.0.1
+    - bitstring >=3.1.7
+    - numpy >=1.24.1
+    - onnx >=1.13.0,<1.19
+    - onnxruntime >=1.15.0
+    - sigtools >=4.0.1
+    - toposort >=1.7.0
+    - tqdm
+
+tests:
+  - python:
+      imports:
+        - qonnx
+      pip_check: false
+      python_version:
+        - ${{ python_min }}
+        - "*"
+  - requirements:
+      run:
+        - python ${{ python_min }}.*
+    script:
+      - qonnx-cleanup --help
+      - qonnx-exec --help
+      - qonnx-to-channels-last --help
+      - qonnx-inference-cost --help
+      - qonnx-convert --help
+      - qonnx-range-analysis --help
+      - qonnx-download-model --help
+
+about:
+  summary: Frontend and utilities for QONNX
+  license: Apache-2.0
+  license_file: LICENSE
+  homepage: https://github.com/fastmachinelearning/qonnx
+
+extra:
+  recipe-maintainers:
+    - isuruf
+    - timkpaine
